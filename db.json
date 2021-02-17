@@ -2,27 +2,27 @@
   "images": [
     {
       "id": 1,
-      "src": "/images/painting1"
+      "src": "/images/painting1.jpg"
     },
     {
       "id": 2,
-      "src": "/images/painting2"
+      "src": "/images/painting2.jpg"
     },
     {
       "id": 3,
-      "src": "/images/painting3"
+      "src": "/images/painting3.jpg"
     },
     {
       "id": 4,
-      "src": "/images/painting4"
+      "src": "/images/painting4.jpg"
     },
     {
       "id": 5,
-      "src": "/images/painting5"
+      "src": "/images/painting5.jpg"
     },
     {
       "id": 6,
-      "src": "/images/painting6"
+      "src": "/images/painting6.jpg"
     }
   ]
 }

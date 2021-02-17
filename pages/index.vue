@@ -1,10 +1,11 @@
 <template>
   <div>
+    {{ images }}
     <img
       v-for="(image, index) in images"
       :key="index"
-      :alt="image.src"
       class="image"
+      :alt="image.src"
       :src="image.src"
     />
   </div>
@@ -15,10 +16,9 @@ import { defineComponent } from "@nuxtjs/composition-api";
 import Images from "@/services/Images";
 
 export default defineComponent({
-  asyncData() {
-    return Images.getImages().then(response => {
-      return { images: response.data };
-    });
+  async asyncData() {
+    const response = await Images.getImages();
+    return { images: response.data };
   },
   head() {
     return {
