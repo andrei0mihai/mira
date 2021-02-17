@@ -3,27 +3,29 @@
     <img
       v-for="(image, index) in images"
       :key="index"
-      alt="'painting' + index"
+      :alt="image.src"
       class="image"
-      :src="'/painting' + index"
+      :src="image.src"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
+import { defineComponent } from "@nuxtjs/composition-api";
 import Images from "@/services/Images";
 
 export default defineComponent({
+  asyncData() {
+    return Images.getImages().then(response => {
+      return { images: response.data };
+    });
+  },
   head() {
     return {
       title: `Mira's artwork`
     };
   },
-  setup: () => {
-    const images = ref(Images.getImages());
-    return { images };
-  }
+  setup: () => {}
 });
 </script>
 
