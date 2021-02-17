@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ images }}
     <img
       v-for="(image, index) in images"
       :key="index"
