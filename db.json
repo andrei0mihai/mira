@@ -1,27 +1,27 @@
 {
   "images": [
     {
-      "id": 1,
+      "id": 0,
       "src": "/images/painting1.jpg"
     },
     {
-      "id": 2,
+      "id": 1,
       "src": "/images/painting2.jpg"
     },
     {
-      "id": 3,
+      "id": 2,
       "src": "/images/painting3.jpg"
     },
     {
-      "id": 4,
+      "id": 3,
       "src": "/images/painting4.jpg"
     },
     {
-      "id": 5,
+      "id": 4,
       "src": "/images/painting5.jpg"
     },
     {
-      "id": 6,
+      "id": 5,
       "src": "/images/painting6.jpg"
     }
   ]

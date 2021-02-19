@@ -4,7 +4,7 @@
       v-for="(image, index) in images"
       :key="index"
       no-prefetch
-      to="/details"
+      :to="`/details/${index}`"
     >
       <img class="image" :alt="image.src" :src="image.src" />
     </nuxt-link>
@@ -29,7 +29,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .image {
   width: 200px;
   height: 200px;

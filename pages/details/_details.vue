@@ -1,5 +1,5 @@
 <template>
-  <div>details</div>
+  <img :alt="image.src" :src="image.src" />
 </template>
 
 <script lang="ts">
@@ -8,10 +8,8 @@ import Images from "@/services/Images";
 
 export default defineComponent({
 async asyncData(context) {
-    const response = await Images.getImage(parseInt(context.params.id));
-    console.log(response.data);
-
-    return { images: response.data };
+    const response = await Images.getImage(parseInt(context.params.details));
+    return { image: response.data };
   }
 })
 </script>

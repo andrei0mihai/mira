@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export default {
   generate: {
     routes: []
@@ -42,18 +40,5 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extend(config, context) {
-      if (context.isServer) {
-        axios
-          .get("https://my-json-server.typicode.com/andrei0mihai/mira")
-          .then(({ data }) => {
-            data.forEach(detailPage => {
-              this.buildContext.options.generate.routes.push(
-                `/${detailPage.id}`
-              );
-            });
-          });
-      }
-    }
   }
 };
