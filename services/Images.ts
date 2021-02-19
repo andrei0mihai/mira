@@ -1,16 +1,19 @@
-import axios from 'axios'
+import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: `https://my-json-server.typicode.com/andrei0mihai/mira`,
+  baseURL: "https://my-json-server.typicode.com/andrei0mihai/mira",
   withCredentials: false,
   headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
+    Accept: "application/json",
+    "Content-Type": "application/json"
   }
-})
+});
 
 export default {
   getImages() {
-    return apiClient.get('/images')
+    return apiClient.get("/images");
+  },
+  getImage(id: number) {
+    return apiClient.get(`/images/${id}`);
   }
-}
+};

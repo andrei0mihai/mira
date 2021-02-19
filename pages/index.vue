@@ -1,12 +1,13 @@
 <template>
   <div>
-    <img
+    <nuxt-link
       v-for="(image, index) in images"
       :key="index"
-      class="image"
-      :alt="image.src"
-      :src="image.src"
-    />
+      no-prefetch
+      to="/details"
+    >
+      <img class="image" :alt="image.src" :src="image.src" />
+    </nuxt-link>
   </div>
 </template>
 

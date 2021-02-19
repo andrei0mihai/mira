@@ -1,4 +1,9 @@
+import axios from "axios";
+
 export default {
+  generate: {
+    routes: []
+  },
   // Target: https://go.nuxtjs.dev/config-target
   target: "static",
 
@@ -6,14 +11,14 @@ export default {
   head: {
     title: "mira",
     htmlAttrs: {
-      lang: "en",
+      lang: "en"
     },
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" },
+      { hid: "description", name: "description", content: "" }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -29,12 +34,26 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     "@nuxt/typescript-build",
-    "@nuxtjs/composition-api",
+    "@nuxtjs/composition-api"
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxtjs/axios"],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extend(config, context) {
+      if (context.isServer) {
+        axios
+          .get("https://my-json-server.typicode.com/andrei0mihai/mira")
+          .then(({ data }) => {
+            data.forEach(detailPage => {
+              this.buildContext.options.generate.routes.push(
+                `/${detailPage.id}`
+              );
+            });
+          });
+      }
+    }
+  }
 };
