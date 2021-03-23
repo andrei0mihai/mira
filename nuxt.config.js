@@ -1,5 +1,6 @@
 export default {
   generate: {
+    interval: 2000,
     routes: []
   },
   // Target: https://go.nuxtjs.dev/config-target
@@ -39,6 +40,5 @@ export default {
   modules: ["@nuxtjs/axios"],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
+  build: {}
 };
