@@ -3,7 +3,6 @@ name: Keep Supabase Alive
 on:
   schedule:
     - cron: '17 4 */3 * *'
-  
   workflow_dispatch:
 
 jobs:
@@ -13,16 +12,22 @@ jobs:
     timeout-minutes: 2
 
     steps:
-      - name: Send keep-alive query to Postgres
+      - name: Send keep-alive query
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
         run: |
-          RESPONSE=$(curl -s -w "\n%{http_code}" --fail-with-body \
-            -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/plants?select=id&limit=1" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
-          
-          HTTP_STATUS=$(echo "$RESPONSE" | tail -n1)
-          BODY=$(echo "$RESPONSE" | sed '$d')
+          CLEAN_URL="${SUPABASE_URL%/}"
 
-          if [ "$HTTP_STATUS" -ne 200 ]; then
+          HTTP_RESPONSE=$(curl -s -w "\n%{http_code}" \
+            -X GET "$CLEAN_URL/rest/v1/plants?select=id&limit=1" \
+            -H "apikey: $SUPABASE_PUBLISHABLE_KEY")
+
+          HTTP_STATUS=$(echo "$HTTP_RESPONSE" | tail -n1)
+          BODY=$(echo "$HTTP_RESPONSE" | sed '$d')
+
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            exit 0
+          else
             exit 1
           fi
