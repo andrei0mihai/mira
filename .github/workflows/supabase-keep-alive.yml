@@ -1,0 +1,28 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    - cron: '17 4 */3 * *'
+  
+  workflow_dispatch:
+
+jobs:
+  ping-db:
+    name: Ping Database via PostgREST
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Send keep-alive query to Postgres
+        run: |
+          RESPONSE=$(curl -s -w "\n%{http_code}" --fail-with-body \
+            -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/plants?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+          
+          HTTP_STATUS=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            exit 1
+          fi
